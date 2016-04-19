@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <div id="app">
+     <li v-for="user in users">
+       <user-card :user='user'></user-card>
+     </li>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.15/vue.js"></script>
+<script>
+Vue.component('UserCard', {
+  props: [ 'user' ],
+  template: '<div class="card-item">{{ user.name }}</div>'
+})
+var app = new Vue({
+  el: '#app',
+  data: {
+    users: [{
+      name: 'Jack'
+    }, {
+      name: 'Bruce'
+    }]
+  }
+})
+</script>
+</body>
+</html>

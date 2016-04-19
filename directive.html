@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>expression</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+</head>
+<body>
+  <p>{{ Date.now() }}</p>
+  <p>{{ 1 > 2 ? 1 : 2 }}</p>
+  <p>{{ say }}</p>
+<script src="./vue.js"></script>
+<script>
+var vm = new Vue({
+  data: {
+    say: 'hola'
+  },
+  el: document.body
+})
+</script>
+</body>
+</html>

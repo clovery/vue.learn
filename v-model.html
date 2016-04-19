@@ -1,0 +1,15 @@
+<div id="app">
+  <input type="checkbox" v-model="checked" value="a" checked>
+  <input type="checkbox" v-model="checked" value="b">
+  <input type="checkbox" v-model="checked" value="c">
+</div>
+<script src="vue.js"></script>
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    checked: []
+  }
+})
+console.log(app.checked)
+</script>
