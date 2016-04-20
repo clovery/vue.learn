@@ -2909,13 +2909,15 @@
     }
     var res = { exp: exp };
     res.get = isSimplePath(exp) && exp.indexOf('[') < 0
-    // optimized super simple getter
-    ? makeGetterFn('scope.' + exp)
-    // dynamic getter
-    : compileGetter(exp);
+      // optimized super simple getter
+      ? makeGetterFn('scope.' + exp)
+      // dynamic getter
+      : compileGetter(exp);
+
     if (needSet) {
       res.set = compileSetter(exp);
     }
+
     expressionCache.put(exp, res);
     return res;
   }
@@ -6402,9 +6404,15 @@
 
   function compile(el, options, partial) {
     // link function for the node itself.
-    var nodeLinkFn = partial || !options._asComponent ? compileNode(el, options) : null;
+    var nodeLinkFn = partial || !options._asComponent
+                     ? compileNode(el, options)
+                     : null;
     // link function for the childNodes
-    var childLinkFn = !(nodeLinkFn && nodeLinkFn.terminal) && el.tagName !== 'SCRIPT' && el.hasChildNodes() ? compileNodeList(el.childNodes, options) : null;
+    var childLinkFn = !(nodeLinkFn && nodeLinkFn.terminal)
+                        && el.tagName !== 'SCRIPT'
+                        && el.hasChildNodes()
+                      ? compileNodeList(el.childNodes, options)
+                      : null;
 
     /**
      * A composite linker function to be called on a already
@@ -6699,7 +6707,10 @@
     var el, token;
     for (var i = 0, l = tokens.length; i < l; i++) {
       token = tokens[i];
-      el = token.tag ? processTextToken(token, options) : document.createTextNode(token.value);
+      el = token.tag
+           ? processTextToken(token, options)
+           : document.createTextNode(token.value);
+
       frag.appendChild(el);
     }
     return makeTextNodeLinkFn(tokens, frag, options);
@@ -6745,7 +6756,7 @@
       var parsed = parseDirective(token.value);
       token.descriptor = {
         name: type,
-        def: publicDirectives[type],
+        def: publicDirectives[type], // 全局对象 publicDirectives
         expression: parsed.expression,
         filters: parsed.filters
       };
@@ -6800,7 +6811,11 @@
     for (var i = 0, l = nodeList.length; i < l; i++) {
       node = nodeList[i];
       nodeLinkFn = compileNode(node, options);
-      childLinkFn = !(nodeLinkFn && nodeLinkFn.terminal) && node.tagName !== 'SCRIPT' && node.hasChildNodes() ? compileNodeList(node.childNodes, options) : null;
+      childLinkFn = !(nodeLinkFn && nodeLinkFn.terminal)
+                      && node.tagName !== 'SCRIPT'
+                      && node.hasChildNodes()
+                    ? compileNodeList(node.childNodes, options)
+                    : null;
       linkFns.push(nodeLinkFn, childLinkFn);
     }
     return linkFns.length ? makeChildLinkFn(linkFns) : null;
@@ -7155,7 +7170,7 @@
     }
     // for template tags, what we want is its content as
     // a documentFragment (for fragment instances)
-    if (isTemplate(el)) {
+    if (isTemplate(el)) { // 判断是否 template 标签
       el = parseTemplate(el);
     }
     if (options) {
@@ -8045,7 +8060,9 @@
       // link phase
       // make sure to link root with prop scope!
       var rootUnlinkFn = rootLinker(this, el, this._scope);
-      var contentUnlinkFn = contentLinkFn ? contentLinkFn(this, el) : compile(el, options)(this, el);
+      var contentUnlinkFn = contentLinkFn
+                            ? contentLinkFn(this, el)
+                            : compile(el, options)(this, el);
 
       // register composite unlink function
       // to be called during instance destruction
@@ -8213,7 +8230,15 @@
       // observing the same object, but that seems to be a
       // reasonable responsibility for the user rather than
       // always throwing an error on them.
-      this.$el = this.$parent = this.$root = this.$children = this._watchers = this._context = this._scope = this._directives = null;
+      this.$el =
+        this.$parent =
+        this.$root =
+        this.$children =
+        this._watchers =
+        this._context =
+        this._scope =
+        this._directives = null;
+
       // call the last hook...
       this._isDestroyed = true;
       this._callHook('destroyed');
