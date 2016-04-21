@@ -5,6 +5,7 @@
   <title></title>
 </head>
 <body>
+  <p>template tag type is [object HTMLTemplateElement]</p>
 <template>
 <div id="app">
   <h1>hello</h1>
@@ -12,8 +13,8 @@
 </template>
 
 <script>
-var template = document.querySelector('template')
-console.log(template instanceof DocumentFragment)
+let template = document.querySelector('template')
+console.log(Object.prototype.toString.call(template))
 </script>
 </body>
 </html>
