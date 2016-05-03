@@ -90,8 +90,9 @@ this.$mount(options.el)
 
           > checkTerminalDirectives
 
-          > compileDirectives(el.attributes, options)
+          > compileDirectives(el.attributes, options) 编译元素所有的指令，返回一个 linker
 
+            > makeNodeLinkFn 最终调用 vm._bindDir，将指令压入到 this._directives 中
 
         > compileTextNode(node, options)
 
@@ -136,3 +137,13 @@ linkAndCapture 迭代 vm._directives 对象，调用 Directive 实例的 _bind()
   > 链接模版和指令
 
 ```
+
+
+## 指令
+
+
+`default function Directive (descriptor, vm, el, host, scope, frag) {`
+
+指令的构造器 `Directive`，位于 [`src/directive.js`](https://github.com/vuejs/vue/blob/v1.0.20/src/directive.js)
+
+descriptor是指令的描述信息
